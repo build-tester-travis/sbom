@@ -1,36 +1,7 @@
-os: linux
-
-dist: focal
-
-language: ruby
-
-install:
-  - bundle install
-
-# Define the jobs
-jobs:
-  include:
-    - name: failing
-      script: true
+jobs:                             # existing functionality
+  include:                        # existing functionality
     - os: linux
       dist: focal
-      language: ruby
-      script:
-        - bundle install                           # Install dependencies
-        - bundle exec rspec                        # Run tests using RSpec
+      name: "SBOM generation example job"
       addons:
-        sbom:                                      # new node
-          on:
-            branch: main                           # branch of the repository
-          run_phase: after_success                 # when SBOM generation should be executed
-          output_format: cyclonedx-json            # SBOM file(s) output format
-          input_dir: .                             # relative paths within build job environments
-          output_dir: /sbom
-
-after_success:
-  - echo "Build successful"
-  - ls -l /sbom
-
-after_failure:
-  - echo "Build failed"
-  - ls -l /sbom
+         sbom
